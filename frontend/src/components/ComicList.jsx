@@ -7,7 +7,7 @@ const ComicList = () => {
 
   useEffect(() => {
     const fetchComics = async () => {
-      const response = await axios.get('http://localhost:5000/api/comics');
+      const response = await axios.get('https://storyverse-fpta.onrender.com/comics');
       setComics(response.data);
     };
     fetchComics();

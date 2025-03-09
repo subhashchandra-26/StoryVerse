@@ -10,7 +10,7 @@ const LoginForm = () => {
   function handleSubmit(e){
     e.preventDefault();
     try {
-      axios.post("http://localhost:5000/api/auth/login", {
+      axios.post("https://storyverse-fpta.onrender.com/auth/login", {
         username,
         password,
       }).then((res) =>{

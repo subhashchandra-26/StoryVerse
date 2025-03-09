@@ -21,7 +21,7 @@ const AddComic = () => {
     try {
       const token = localStorage.getItem('token');
       console.log(token)
-      const response = await axios.post('http://localhost:5000/api/comics', formData, {
+      const response = await axios.post('https://storyverse-fpta.onrender.com/comics', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ const AddComic = () => {
       alert('Comic uploaded successfully!');
       console.log(response.data); // Log the response for debugging
     } catch (error) {
-      console.error(error.response?.data?.message || 'An error occurred');
+      console.error(error);
     }
   };
 
