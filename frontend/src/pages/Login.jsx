@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { User, Lock } from "lucide-react";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -28,12 +29,14 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100">
-      <div className="card w-50">
-        <div className="card-body">
-          <h2>Login</h2>
+  <div className="d-flex justify-content-center align-items-center min-vh-90 bg-light vh-100">
+        <div className="card shadow p-4" style={{ width: "400px", borderRadius: "12px", maxWidth: "90vw" }}>
+          <h3 className="text-center mb-4">Login</h3>
           <form onSubmit={handleSubmit}>
-            <div className="mb-3">
+            <div className="mb-3 input-group">
+              <span className="input-group-text bg-white">
+                <User size={18} />
+              </span>
               <input
                 type="text"
                 className="form-control"
@@ -43,7 +46,10 @@ const LoginForm = () => {
                 required
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-3 input-group">
+              <span className="input-group-text bg-white">
+                <Lock size={18} />
+              </span>
               <input
                 type="password"
                 className="form-control"
@@ -53,13 +59,20 @@ const LoginForm = () => {
                 required
               />
             </div>
-            <button type="submit" className="btn btn-primary">
+            {/* <div className="d-flex justify-content-between mb-3">
+              <div className="form-check">
+                <input type="checkbox" className="form-check-input" id="rememberMe" />
+                <label className="form-check-label" htmlFor="rememberMe">
+                  Remember me
+                </label>
+              </div>
+            </div> */}
+            <button type="submit" className="btn btn-primary w-100">
               Login
             </button>
           </form>
         </div>
       </div>
-    </div>
   );
 };
 
