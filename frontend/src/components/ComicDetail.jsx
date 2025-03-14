@@ -11,7 +11,7 @@ const ComicDetail = () => {
   useEffect(() => {
     const fetchComic = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/comics/${id}`);
+        const response = await axios.get(`https://storyverse-fpta.onrender.com/api/comics/${id}`);
         setComic(response.data);
         setLoading(false);
       } catch (error) {
@@ -33,7 +33,7 @@ const ComicDetail = () => {
       <h1 className="mb-4">{comic.title}</h1>
       <div>
         {/* <img
-          src={`http://localhost:5000/${comic.coverImage}`}
+          src={`https://storyverse-fpta.onrender.com/${comic.coverImage}`}
           alt={comic.title}
           className="card-img-top"
           style={{ maxHeight: '400px', objectFit: 'cover' }}
@@ -47,7 +47,7 @@ const ComicDetail = () => {
       <div className="mt-4">
         <h3>Comic Document</h3>
         <iframe
-          src={`http://localhost:5000/${comic.document}`}
+          src={`https://storyverse-fpta.onrender.com/${comic.document}`}
           width="90%"
           height="900px"
           style={{ border: 'none' }}

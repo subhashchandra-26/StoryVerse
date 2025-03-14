@@ -36,7 +36,7 @@ const AddComic = () => {
         return;
       }
 
-      const response = await axios.post('http://localhost:5000/api/comics', formData, {
+      const response = await axios.post('https://storyverse-fpta.onrender.com/api/comics', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

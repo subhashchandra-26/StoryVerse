@@ -12,7 +12,7 @@ const ComicList = () => {
   useEffect(() => {
     const fetchComics = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/comics');
+        const response = await axios.get('https://storyverse-fpta.onrender.com/api/comics');
         setComics(response.data);
       } catch (error) {
         console.error('Error fetching comics:', error);
@@ -24,10 +24,10 @@ const ComicList = () => {
   function ComicCard({ comic }) {
     return (
       <div className="card group position-relative bg-white rounded-lg shadow overflow-hidden transition-transform hover:translate-y-neg-1 ms-4">
-        <a href={`http://localhost:5000/${comic.document}`} target="_blank" rel="noopener noreferrer">
+        <a href={`https://storyverse-fpta.onrender.com/${comic.document}`} target="_blank" rel="noopener noreferrer">
         <div className="aspect-ratio aspect-ratio-2x3 position-relative overflow-hidden">
           <img 
-            src={`http://localhost:5000/${comic.coverImage}`}
+            src={`https://storyverse-fpta.onrender.com/${comic.coverImage}`}
             alt={comic.title}
             className="card-img-top object-fit-cover w-100 h-100 group-hover:scale-105 transition-transform duration-300 p-1"
           />

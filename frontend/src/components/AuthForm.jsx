@@ -17,7 +17,7 @@ const AuthForm = ({ type }) => {
       // Log the payload for debugging
       console.log('Payload:', payload);
 
-      const response = await axios.post(`http://localhost:5000${endpoint}`, payload);
+      const response = await axios.post(`https://storyverse-fpta.onrender.com${endpoint}`, payload);
       localStorage.setItem('token', response.data.token);
 
       if (type === 'register') {
