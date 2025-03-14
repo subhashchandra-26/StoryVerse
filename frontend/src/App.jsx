@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AuthorDashboard from './pages/AuthorDashboard';
+import ComicDetail from './components/ComicDetail';
 // import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/author-dashboard" element={<AuthorDashboard />} />
+        <Route path="/comics/:id" element={<ComicDetail/>}/>
       </Routes>
     </Router>
   );

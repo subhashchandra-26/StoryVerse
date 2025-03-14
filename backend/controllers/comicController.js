@@ -14,28 +14,34 @@ const storage = multer.diskStorage({
 });
 
 // Initialize multer with the storage configuration
-const upload = multer({ storage });
+const upload = multer({
+  storage,
+  limits: {
+    fileSize: 20 * 1024 * 1024, // 0 MB limit per file
+    files: 2, // Maximum of 2 files (coverImage and document)
+  },
+});
 
 // Upload a new comic
 const uploadComic = async (req, res) => {
   try {
     const { title, description } = req.body;
-    console.log(req.headers)
+    console.log(req.files)
 
-    // Check if required fields are provided
+    // Check if required fields and files are provided
     if (!title || !description || !req.files['coverImage'] || !req.files['document']) {
       return res.status(400).json({ message: 'All fields are required, including cover image and document.' });
     }
 
-    // Get file paths from multer
-    const coverImage = req.files['coverImage'][0].path;
-    const document = req.files['document'][0].path;
+    // Access the first file for each field
+    const coverImage = req.files['coverImage'][0].path; // Use [0] for the first file
+    const document = req.files['document'][0].path; // Use [0] for the first file
 
     // Create a new comic
     const comic = new Comic({
       title,
-      description,
       coverImage,
+      description,
       document,
       author: req.user.id, // Attach the authenticated user's ID as the author
     });
@@ -47,6 +53,12 @@ const uploadComic = async (req, res) => {
     res.status(201).json({ message: 'Comic uploaded successfully.', comic });
   } catch (err) {
     console.error('Error uploading comic:', err);
+
+    // Handle file upload errors
+    if (err instanceof multer.MulterError) {
+      return res.status(400).json({ message: 'File upload error: ' + err.message });
+    }
+
     res.status(500).json({ message: 'Server error during comic upload.' });
   }
 };
@@ -54,8 +66,8 @@ const uploadComic = async (req, res) => {
 // Get all comics
 const getComics = async (req, res) => {
   try {
-    // Fetch all comics and populate the author's username
     const comics = await Comic.find().populate('author', 'username');
+    // console.log(comics)
     res.json(comics);
   } catch (err) {
     console.error('Error fetching comics:', err);
@@ -72,13 +84,11 @@ const getComicById = async (req, res) => {
     if (!comic) {
       return res.status(404).json({ message: 'Comic not found.' });
     }
-
     res.json(comic);
   } catch (err) {
     console.error('Error fetching comic by ID:', err);
     res.status(500).json({ message: 'Server error while fetching comic.' });
   }
 };
-
 
 module.exports = { uploadComic, getComics, getComicById, upload };

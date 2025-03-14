@@ -5,25 +5,55 @@ import { useParams } from 'react-router-dom';
 const ComicDetail = () => {
   const { id } = useParams();
   const [comic, setComic] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchComic = async () => {
-      const response = await axios.get(`https://storyverse-fpta.onrender.com/comics/${id}`);
-      setComic(response.data);
+      try {
+        const response = await axios.get(`http://localhost:5000/api/comics/${id}`);
+        setComic(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching comic:', error);
+        setError('Failed to fetch comic details.');
+        setLoading(false);
+      }
     };
+
     fetchComic();
   }, [id]);
 
-  if (!comic) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+  if (!comic) return <div>Comic not found.</div>;
 
   return (
-    <div className="container">
-      <h1>{comic.title}</h1>
-      <img src={`http://localhost:5000/${comic.coverImage}`} alt={comic.title} />
-      <p>{comic.description}</p>
-      <a href={`http://localhost:5000/${comic.document}`} target="_blank" rel="noopener noreferrer">
-        Read Comic
-      </a>
+    <div className="container mt-4">
+      <h1 className="mb-4">{comic.title}</h1>
+      <div>
+        {/* <img
+          src={`http://localhost:5000/${comic.coverImage}`}
+          alt={comic.title}
+          className="card-img-top"
+          style={{ maxHeight: '400px', objectFit: 'cover' }}
+        /> */}
+        <div>
+          <p>{comic.description}</p>
+        </div>
+      </div>
+
+      {/* Display the comic document directly */}
+      <div className="mt-4">
+        <h3>Comic Document</h3>
+        <iframe
+          src={`http://localhost:5000/${comic.document}`}
+          width="90%"
+          height="900px"
+          style={{ border: 'none' }}
+          title="Comic Document"
+        />
+      </div>
     </div>
   );
 };

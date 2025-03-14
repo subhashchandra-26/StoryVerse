@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem('token');
       if (token) {
         try {
-          const response = await axios.get('https://storyverse-fpta.onrender.com/auth/me', {
+          const response = await axios.get('http://localhost:5000/api/auth/me', {
             headers: { Authorization: `Bearer ${token}` },
           });
           setUser(response.data);
@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post('https://storyverse-fpta.onrender.com/auth/login', { username, password });
+      const response = await axios.post('http://localhost:5000/api/auth/login', { username, password });
       localStorage.setItem('token', response.data.token);
       setUser(response.data.user);
       navigate(response.data.user.role === 'author' ? '/author-dashboard' : '/');
@@ -43,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, password, role) => {
     try {
-      const response = await axios.post('https://storyverse-fpta.onrender.com/auth/register', { username, password, role });
+      const response = await axios.post('http://localhost:5000/api/auth/register', { username, password, role });
       localStorage.setItem('token', response.data.token);
       setUser(response.data.user);
       navigate(role === 'author' ? '/author-dashboard' : '/');

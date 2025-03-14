@@ -7,9 +7,6 @@ const Home = () => {
       {/* <header className="header">
         <h1>Comic Platform</h1>
       </header> */}
-     <div className='p-2'>
-        <h2>Featured Comics</h2>
-     </div>
       <ComicList />
     </div>
   );
