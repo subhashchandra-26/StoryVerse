@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AddComic = () => {
   const [title, setTitle] = useState('');
@@ -7,6 +8,7 @@ const AddComic = () => {
   const [coverImage, setCoverImage] = useState(null);
   const [document, setDocument] = useState(null);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,7 +38,7 @@ const AddComic = () => {
         return;
       }
 
-      const response = await axios.post('https://storyverse-fpta.onrender.com/api/comics', formData, {
+      const response = await axios.post('http://localhost:5000/api/comics', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -51,6 +53,7 @@ const AddComic = () => {
       setError('');
       alert('Comic uploaded successfully!');
       console.log(response.data); // Log the response for debugging
+      navigate('/')
     } catch (error) {
       console.error('Error uploading comic:', error);
       setError('Failed to upload comic. Please try again.');
