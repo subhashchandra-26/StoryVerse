@@ -22,7 +22,7 @@ const Navbar = () => {
       <div className="container-fluid">
         {/* Logo */}
         <Link to="/" className="navbar-brand">
-          <h3>StoryVerse</h3>
+          <h3>ComicVerse</h3>
         </Link>
 
         {/* Toggle Button for Mobile */}
